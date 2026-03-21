@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Register = ({toggleScreen}) => {
+const Register = ({ toggleScreen }) => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,9 +24,7 @@ const Register = ({toggleScreen}) => {
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 transition-all hover:scale-[1.01]">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-gray-800">StayHub</h2>
-          <p className="text-gray-800 mt-2">
-            Bienvenido a StayHub
-          </p>
+          <p className="text-gray-800 mt-2">Bienvenido a StayHub</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -33,28 +33,28 @@ const Register = ({toggleScreen}) => {
               FirstName
             </label>
             <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="w-full p-3 border border-gray-400 rounded-xl shadow-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-            placeholder="Your Name"
-            required
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-3 border border-gray-400 rounded-xl shadow-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              placeholder="Your Name"
+              required
             />
-            </div>
+          </div>
 
-            <div>
+          <div>
             <label className="text-sm font-bold text-gray-700 block mb-2">
               LastName
             </label>
             <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="w-full p-3 border border-gray-400 rounded-xl shadow-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-            placeholder="Your LastName"
-            required
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full p-3 border border-gray-400 rounded-xl shadow-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              placeholder="Your LastName"
+              required
             />
-            </div>
+          </div>
 
           <div>
             <label className="text-sm font-bold text-gray-700 block mb-2">
@@ -85,7 +85,7 @@ const Register = ({toggleScreen}) => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
+            className="w-full bg-blue-950 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
           >
             Restrigarse
           </button>
@@ -95,8 +95,8 @@ const Register = ({toggleScreen}) => {
         <p className="text-gray-500 text-center mb-8">¿Ya tienes cuenta?</p>
         <button
           type="button"
-          onClick={toggleScreen}
-          className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
+          onClick={() => navigate("/Login")}
+          className="w-full bg-blue-950 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
         >
           Iniciar Sesión
         </button>

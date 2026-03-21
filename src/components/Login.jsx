@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({toggleScreen}) => {
+const Login = ({ toggleScreen }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,7 +52,7 @@ const Login = ({toggleScreen}) => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
+            className="w-full bg-blue-950 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
           >
             Iniciar sesión
           </button>
@@ -60,8 +62,8 @@ const Login = ({toggleScreen}) => {
         <p className="text-gray-500 text-center mb-8">¿Aun no tienes cuenta?</p>
         <button
           type="button"
-          onClick={toggleScreen}
-          className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
+          onClick={() => navigate("/Register")}
+          className="w-full bg-blue-950 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
         >
           Registrate
         </button>

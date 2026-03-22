@@ -87,7 +87,7 @@ const Register = ({ toggleScreen }) => {
             type="submit"
             className="w-full bg-blue-950 text-white font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.01]"
           >
-            Restrigarse
+            Registrate
           </button>
         </form>
       </div>

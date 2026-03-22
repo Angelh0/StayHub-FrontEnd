@@ -42,7 +42,7 @@ const AccessContainer = () => {
             </div>
           </div>
 
-          {/*Contenedor Iniciar Sesion */}
+          {/*Contenedor Registrarse */}
           <div
             className="bg-white relative w-1/2 rounded-3xl overflow-hidden bg-cover bg-center flex items-end justify-end p-3 transition-all hover:scale-[1.01]"
             style={{ backgroundImage: `url(${AccesoExterior1})` }}

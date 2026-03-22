@@ -17,7 +17,7 @@ const HomeContainer = () => {
         <Hero />
       </div>
 
-      <div className="w-full bg-yellow-200 min-h-96 flex items-center justify-center">
+      <div className="w-full min-h-96 flex items-center justify-center">
         <Featured />
       </div>
 

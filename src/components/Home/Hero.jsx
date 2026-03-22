@@ -38,6 +38,10 @@ const cities = [
     name: "Valencia",
     url: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=2070",
   },
+  {
+    name:"Tenerife",
+    url: "https://images.unsplash.com/photo-1602521715918-e50cc83f7326?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
 ];
 
 const Hero = () => {
@@ -85,7 +89,7 @@ const Hero = () => {
       {cities.map((city, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-150 ease-in-out bg-center bg-cover ${index === current ? "opacity-40" : "opacity-0"}`}
+          className={`absolute inset-0 transition-opacity duration-150 ease-in-out  bg-center bg-cover ${index === current ? "opacity-40" : "opacity-0"}`}
           style={{ backgroundImage: `url(${city.url})` }}
         ></div>
       ))}

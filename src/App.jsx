@@ -1,32 +1,31 @@
 /*import { BrowserRouter as Router, Routes, Route } from "react-router-dom";*/
 import React, {useState} from "react";
-import AccessContainer from "./components/AccessContainer";
-import Login from "./components/Login"
-import Register from "./components/Register";
-import UpgradeOwner from "./components/UpgradeOwner";
-import OwnerContainer from "./components/OwnerContainer";
-import Home from "./components/Home";
+import AccessContainer from "./components/Access/AccessContainer";
+import Login from "./components/Access/Login"
+import Register from "./components/Access/Register";
+import UpgradeOwner from "./components/Access/UpgradeOwner";
+import OwnerContainer from "./components/Access/OwnerContainer";
+import HomeContainer from "./components/Home/HomeContainer";
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
 
-  return (
+return (
 
-    <Home/>
+      <HomeContainer />
+)
+      {/* <Router>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<AccessContainer/>}/>
+            <Route path="/" element={<OwnerContainer/>}/>
+            <Route path="/Login" element={<Login/>}/>
+            <Route path="/Register" element={<Register/>}/>
+            <Route path="/UpgradeOwner" element={<UpgradeOwner/>}/>
+          </Routes>
+        </Router>
+      */}
 
-    /*<Router>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-
-        <Route path="/" element={<AccessContainer/>}/>
-        <Route path="/" element={<OwnerContainer/>}/>
-        <Route path="/Login" element={<Login/>}/>
-        <Route path="/Register" element={<Register/>}/>
-        <Route path="/UpgradeOwner" element={<UpgradeOwner/>}/>
-      </Routes>
-    </Router>*/
-
-  );
-}
+};
 
 export default App;

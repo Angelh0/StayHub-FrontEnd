@@ -98,12 +98,12 @@ const Hero = () => {
         <h1 className="flex items-center cursor-pointer select-none text-6xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase  drop-shadow-2xl">
           Descubre España con St
           <MapPin
-            size={55}
+            size={49}
             className="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]"
           />
           yHub
         </h1>
-        <p className="mt-4 text-xl md:text-2xl font-bold text-gray-200 tracking-tight max-w-2xl">
+        <p className="mt-4 text-xl md:text-2xl font-bold text-white tracking-tight max-w-2xl">
           ¿Cuál es tu proximo destino?
         </p>
 
@@ -222,7 +222,7 @@ const Hero = () => {
           <h2 className="text-2xl text-white font-bold italic shadow-2xl">
             Desliza para conocer alguno de nuestros mejores alojamientos
           </h2>
-          <Mouse className=" animate-bounce size-8 drop-shadow-lg"></Mouse>
+          <Mouse className="text-yellow-400 animate-bounce size-8 drop-shadow-lg"></Mouse>
         </div>
       </div>
     </div>

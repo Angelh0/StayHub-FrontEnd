@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import LogoStayHub from "../../assets/logoStayHub.svg"
 import { MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate(); 
   return (
     <nav className="w-full h-full flex items-center justify-between px-6 md:px-12 shadow-md">
 
@@ -20,7 +21,7 @@ const Navbar = () => {
 
       <div className="flex items-center gap-6 ">
         <a href="#" className="text-yellow-500 font-bold hover:text-white transition-colors uppercase">¿Tienes un alojamiento?</a>
-        <button className="bg-black rounded-full border-2 cursor-pointer text-yellow-500 uppercase px-6 py-1 hover:text-blue-950 transition-colors hover:bg-yellow-500 hover:scale-[1.01] ">Acceder</button>
+        <button type="button" onClick={() => navigate("/AccessContainer")} className="bg-black rounded-full border-2 cursor-pointer text-yellow-500 uppercase px-6 py-1 hover:text-blue-950 transition-colors hover:bg-yellow-500 hover:scale-[1.01] ">Acceder</button>
 
       </div>
 

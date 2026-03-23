@@ -25,7 +25,7 @@ const HomeContainer = () => {
         <OwnerBanner />
       </div>
 
-      <div className="w-full bg-purple-200 min-h-96 flex items-center justify-center">
+      <div className="w-full min-h-96 flex items-center justify-center">
         <Destinations />
       </div>
     </div>

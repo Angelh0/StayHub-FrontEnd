@@ -20,7 +20,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6 ">
-        <a href="#" className="text-yellow-500 font-bold hover:text-white transition-colors uppercase">¿Tienes un alojamiento?</a>
+        <a onClick={() => navigate("/OwnerContainer")} className="text-yellow-500 cursor-pointer font-bold hover:text-white transition-colors uppercase">¿Tienes un alojamiento?</a>
         <button type="button" onClick={() => navigate("/AccessContainer")} className="bg-black rounded-full border-2 cursor-pointer text-yellow-500 uppercase px-6 py-1 hover:text-blue-950 transition-colors hover:bg-yellow-500 hover:scale-[1.01] ">Acceder</button>
 
       </div>

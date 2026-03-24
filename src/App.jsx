@@ -15,7 +15,7 @@ return (
           <Routes>
             <Route path="/" element={<HomeContainer/>}/>
             <Route path="/AccessContainer" element={<AccessContainer/>}/>
-            <Route path="/" element={<OwnerContainer/>}/>
+            <Route path="/OwnerContainer" element={<OwnerContainer/>}/>
             <Route path="/Login" element={<Login/>}/>
             <Route path="/Register" element={<Register/>}/>
             <Route path="/UpgradeOwner" element={<UpgradeOwner/>}/>

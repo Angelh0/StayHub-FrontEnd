@@ -4,21 +4,31 @@ import { MapPin } from "lucide-react";
 
 const Register = ({ toggleScreen }) => {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Intentando registro con: ", {
-      firstName,
-      lastName,
-      email,
-      password,
-    });
-    alert("Enviando a java: " + email);
+const [formData, setFormData] = useState ({
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: ""
+});
+
+const isFormValid =
+  formData.firstName.trim() !== "" &&
+  formData.lastName.trim() !== "" &&
+  formData.email.includes("@") &&
+  formData.password.length >=6 
+
+const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (isFormValid) {
+    navigate("/Login")
+  }
+}
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white space-y-5 p-4 transform">
@@ -41,8 +51,9 @@ const Register = ({ toggleScreen }) => {
             </label>
             <input
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
               className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white"
               placeholder="Nombre"
               required
@@ -55,8 +66,9 @@ const Register = ({ toggleScreen }) => {
             </label>
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
               className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white"
               placeholder="Apellidos"
               required
@@ -69,8 +81,9 @@ const Register = ({ toggleScreen }) => {
             </label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white"
               placeholder="StayHub@gmail.com"
               required
@@ -83,21 +96,27 @@ const Register = ({ toggleScreen }) => {
             </label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               className="w-full p-3 text-white border border-white rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white"
               placeholder="••••••"
+              required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-black ring ring-yellow-400 text-yellow-400 font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.03] cursor-pointer"
-          >
+            disabled={!isFormValid}
+            className={`w-full font-bold py-3 rounded-xl transition-all ring ${isFormValid ? "bg-black text-green-400 rign-green-400 hover:scale-[1.03] cursor pointer" 
+              : "bg-transparent text-red-500/50 ring-red-600 cursor-not-allowed opacity-50"
+              }`}>
             Registrate
+            
           </button>
         </form>
       </div>
+      
       <div className="max-w-md w-full bg-black rounded-2xl shadow-xl p-8 transition-all hover:scale-[1.02]">
         <p className="text-white text-center mb-8">¿Ya tienes cuenta?</p>
         <button

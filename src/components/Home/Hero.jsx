@@ -94,7 +94,7 @@ const Hero = () => {
         ></div>
       ))}
 
-    <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-yellow-400">
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-white">
         <h1 className="flex items-center cursor-pointer select-none text-6xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase  drop-shadow-2xl">
           Descubre España con St
           <MapPin
@@ -103,7 +103,7 @@ const Hero = () => {
           />
           yHub
         </h1>
-        <p className="mt-4 text-xl md:text-2xl font-bold text-white tracking-tight max-w-2xl">
+        <p className="mt-4 text-xl md:text-2xl font-bold text-yellow-400 tracking-tight max-w-2xl">
           ¿Cuál es tu proximo destino?
         </p>
 

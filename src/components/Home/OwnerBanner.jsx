@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OwnerBanner = () => {
+   const navigate = useNavigate(); 
   return (
     <div className="w-full bg-white py-20 px-6 md:px-12 font-sans">
         <div className="translate-y-0 hover:-translate-y-1 duration-500 max-w-7xl mx-auto flex flex-col items-center md:flex-row text-center rounded-2xl mb-16 justify-between  overflow-hidden relative p-10 bg-black gap-10 md:p-16">
@@ -12,7 +14,7 @@ const OwnerBanner = () => {
             </div>
 
             <div className="z-10 shrink">
-                <button className="bg-yellow-400 font-bold py-4 px-8 rounded-2xl hover:scale-[1.08] cursor-pointer duration-500">
+                <button onClick={() => navigate("/OwnerContainer")} className="bg-yellow-400 font-bold py-4 px-8 rounded-2xl hover:scale-[1.08] cursor-pointer duration-500">
                 Publica tu alojamiento</button>
             </div>
         </div>

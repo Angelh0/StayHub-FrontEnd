@@ -4,6 +4,7 @@ import Hero from "./Hero";
 import Featured from "./Featured";
 import OwnerBanner from "./OwnerBanner";
 import Destinations from "./Destinations";
+import Footer from "./Footer"
 import LogoStayHub from "../../assets/LogoStayHub.svg"
 
 const HomeContainer = () => {
@@ -27,6 +28,10 @@ const HomeContainer = () => {
 
       <div className="w-full min-h-96 flex items-center justify-center">
         <Destinations />
+      </div>
+
+      <div className="w-full min-h-100 bg-black items-center justify-center">
+        <Footer />
       </div>
     </div>
   );

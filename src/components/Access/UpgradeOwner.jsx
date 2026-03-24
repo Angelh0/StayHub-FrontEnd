@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import { MapPin } from "lucide-react";
+import { authService } from "../../services/authService";
+import { useAuth } from "../../context/authContext";
 
 const UpgradeOwner = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     city: "",
     phoneNumber: "",
   });
+
+  const [error, setError] = useState("");
 
   const isFormValid =
     formData.city.trim() !== "" && 
@@ -18,10 +23,24 @@ const UpgradeOwner = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (isFormValid) {
-      navigate("/Login");
+
+      try {
+        const payload = {
+        ...formData,
+        uuidUser: user?.uuid}
+
+        const data = await authService.signUpOwner(payload);
+        
+        navigate("/Login"); 
+      } catch (error) {
+        console.log("Error en registro como propietario", error)
+        setError("Fallo interno")
+      }
     }
   };
 
@@ -29,7 +48,6 @@ const UpgradeOwner = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white space-y-5 p-4">
       <div className="max-w-md w-full bg-black rounded-2xl shadow-xl p-8 transition-all hover:scale-[1.02]">
         
-        {/* --- LOGO STAYHUB --- */}
         <div className="flex items-center w-full justify-center mb-1">
           <h2 className="text-3xl text-white uppercase font-bold">
             St{" "}
@@ -80,8 +98,7 @@ const UpgradeOwner = () => {
               isFormValid 
                 ? "bg-black text-green-400 ring-green-400 hover:scale-[1.03] cursor-pointer" 
                 : "bg-transparent text-red-500/50 ring-red-600 cursor-not-allowed opacity-50"
-            }`}
-            onClick={() => navigate("/Login")}>
+            }`}>
             Registrarme como propietario
           </button>
         </form>

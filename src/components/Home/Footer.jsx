@@ -68,8 +68,6 @@ const Footer = () => {
                 <li className="hover:text-yellow-400 cursor-pointer">Aviso Legal</li>
                 </ul>
             </div>
-
-           
         
       </div>
 
@@ -84,8 +82,6 @@ const Footer = () => {
 
                 </div>
             </div>
-
-            
     </footer>
   );
 };

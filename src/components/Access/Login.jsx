@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapPin } from "lucide-react";
+import { authService } from "../../services/authService";
+import { useAuth } from "../../context/authContext";
 
 const Login = ({ toggleScreen }) => {
   const navigate = useNavigate();
+  const {saveAuth} = useAuth();
+
+  const[error, setError] = useState("");
 
   const [formData, setFormData] = useState ({
     email: "",
@@ -18,10 +23,20 @@ const Login = ({ toggleScreen }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (isFormValid) {
-      navigate("/#")
+      try {
+        const data = await authService.login(formData);
+        saveAuth(data)
+        navigate("/#")
+      } catch (error) {
+        console.error("Error al iniciar sesion: ", error);
+        setError("Correo o contraseña incorrectos")
+      }
+
     }
   }
 

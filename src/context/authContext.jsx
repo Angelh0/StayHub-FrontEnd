@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
       uuid: decoded.userUUID,
       email: decoded.role !== "GUEST" ? decoded.sub : "GUEST",
       role: decoded.role,
+      firstName: decoded.firstName,
+      lastName: decoded.lastName
     });
   };
 

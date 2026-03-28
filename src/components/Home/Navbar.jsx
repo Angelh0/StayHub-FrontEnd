@@ -16,6 +16,11 @@ const Navbar = () => {
     window.location.href = "/";
   };
 
+  const logOutAccessContainer = () => {
+    localStorage.removeItem("stayhub_token");
+    navigate("/AccessContainer")
+  }
+
   return (
     <nav className="w-full h-full flex items-center justify-between px-6 md:px-12 shadow-md">
 
@@ -42,7 +47,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        {role !== "OWNER" && (
+        {role === "USER" && (
           <button 
             onClick={() => navigate("/OwnerContainer")} 
             className="text-yellow-500 cursor-pointer text-xs font-bold hover:text-white transition-colors uppercase"
@@ -54,7 +59,7 @@ const Navbar = () => {
         {role === "GUEST" ? (
           <button 
             type="button" 
-            onClick={() => navigate("/AccessContainer")} 
+            onClick={logOutAccessContainer} 
             className="bg-black rounded-full border-2 border-yellow-500 cursor-pointer text-yellow-500 uppercase px-6 py-1 hover:text-black transition-all hover:bg-yellow-500 hover:scale-[1.03]"
           >
             Acceder
@@ -67,7 +72,7 @@ const Navbar = () => {
                   Gestionar <ChevronDown size={14} />
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden border border-gray-200 cursor-pointer">
-                  <button onClick={() => navigate("/#")} className="w-full text-left px-4 py-3 text-xs border-b uppercase cursor-pointer">Añadir Alojamiento</button>
+                  <button onClick={() => navigate("/CreateAccommodation")} className="w-full text-left px-4 py-3 text-xs border-b uppercase cursor-pointer">Añadir Alojamiento</button>
                   <button onClick={() => navigate("/#")} className="w-full text-left px-4 py-3 text-xs uppercase cursor-pointer">Mis Alojamientos</button>
                 </div>
               </div>

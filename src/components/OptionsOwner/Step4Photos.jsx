@@ -1,6 +1,6 @@
 import React from "react";
 
-const Step4Photos = ({ openWidget, formData }) => {
+const Step4Photos = ({ openWidget, formData, removePhoto}) => {
   return (
     <div className="space-y-4 flex-col">
       <div className="flex items-baseline justify-between gap-3 mb-1">
@@ -22,7 +22,7 @@ const Step4Photos = ({ openWidget, formData }) => {
           <span className="text-yellow-400 text-3xl font-light">+</span>
         </div>
         <p className="text-white font-semibold">
-          Haz clic o arrastra tus fotos aquí
+          Haz clic para añadir las fotos de tu alojamiento 
         </p>
       </div>
 
@@ -37,6 +37,15 @@ const Step4Photos = ({ openWidget, formData }) => {
                   alt={`Alojamiento ${index + 1}`} 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
+                <button 
+                  type="button" 
+                  onClick={() => removePhoto(index)} 
+                  className="absolute top-2 right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center z-10 font-bold text-xs cursor-pointer"
+                  title="Eliminar foto"
+                >
+                  ✕
+                </button>
+
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="text-white text-xs">Foto {index + 1}</span>
                 </div>

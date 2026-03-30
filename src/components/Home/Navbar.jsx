@@ -7,8 +7,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  console.log("Datos del usuario en Navbar:", user);
-
   const role = user?.role || "GUEST";
 
   const logOut = () => {
@@ -18,15 +16,14 @@ const Navbar = () => {
 
   const logOutAccessContainer = () => {
     localStorage.removeItem("stayhub_token");
-    navigate("/AccessContainer")
-  }
+    navigate("/AccessContainer");
+  };
 
   return (
-    <nav className="w-full h-full flex items-center justify-between px-6 md:px-12 shadow-md">
-
-      <div className="flex items-center cursor-pointer select-none">
+    <nav className="w-full h-full flex items-center justify-between px-6 md:px-12 shadow-md bg-black">
+      <div className="flex items-center cursor-pointer select-none" onClick={() => navigate("/")}>
         <h2 className="text-white uppercase text-2xl font-bold">St</h2>
-        <MapPin size={19} className="text-yellow-400   strokeWidth={2}"/>
+        <MapPin size={19} className="text-yellow-400 strokeWidth={2}" />
         <h2 className="text-white uppercase text-2xl font-bold">yHub</h2>
       </div>
 
@@ -71,19 +68,43 @@ const Navbar = () => {
                 <button className="flex items-center gap-1 bg-yellow-500 text-black px-4 py-1 rounded-full font-bold text-[10px] hover:bg-yellow-400 uppercase tracking-tighter cursor-pointer">
                   Gestionar <ChevronDown size={14} />
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden border border-gray-200 cursor-pointer">
-                  <button onClick={() => navigate("/CreateAccommodation")} className="w-full text-left px-4 py-3 text-xs border-b uppercase cursor-pointer">Añadir Alojamiento</button>
-                  <button onClick={() => navigate("/#")} className="w-full text-left px-4 py-3 text-xs uppercase cursor-pointer">Mis Alojamientos</button>
+                
+                <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border border-gray-200 cursor-pointer">
+                  <button onClick={() => navigate("/CreateAccommodation")} className="w-full text-left px-4 py-3 text-xs border-b uppercase cursor-pointer hover:bg-gray-100 transition-colors">
+                    Añadir Alojamiento
+                  </button>
+                  
+                  <div className="relative group/sub">
+                    <div className="w-full flex items-center justify-between px-4 py-3 text-xs uppercase cursor-pointer hover:bg-gray-100 transition-colors border-b font-bold">
+                      Mis Alojamientos <ChevronDown size={12} />
+                    </div>
+                    
+                    <div className="hidden group-hover/sub:block bg-white">
+                      <button 
+                        onClick={() => navigate("/mis-alojamientos")} 
+                        className="w-full text-left pl-8 py-3 text-xs uppercase border-b hover:bg-gray-100 transition-colors"
+                      >
+                        Alojamientos
+                      </button>
+                      <button 
+                        onClick={() => navigate("/mis-habitaciones")} 
+                        className="w-full text-left pl-8 py-3 text-xs uppercase hover:bg-gray-100 transition-colors"
+                      >
+                        Habitaciones
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
+            
             <div className="text-right hidden sm:block">
               <p className="text-[10px] text-gray-400 uppercase leading-none italic">Bienvenido,</p>
               <p className="text-sm font-bold uppercase">{user?.firstName || "Usuario"}</p>
             </div>
             <button 
               onClick={logOut} 
-              className=" text-red-500 transition-colors cursor-pointer p-2"
+              className="text-red-500 transition-colors cursor-pointer p-2 hover:scale-110"
             >
               <LogOut size={20} />
             </button>

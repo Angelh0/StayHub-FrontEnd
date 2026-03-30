@@ -1,13 +1,13 @@
 import React from "react";
 
-const Step3Calendar = ({ formData, handleMonthToggle, mesesDelAño }) => {
+const Step3Calendar = ({ formData, handleMonthToggle, mesesDelAño, totalSteps = 5 }) => {
   return (
     <div className="space-y-4 flex-col">
       <div className="flex items-baseline justify-between gap-3 mb-1">
         <h2 className="text-2xl font-bold border-b-4 border-yellow-400 inline-block pb-1 text-white">
           Configuración de estancia
         </h2>
-        <span className="text-yellow-400/50 px-5">Paso 3 de 5</span>
+        <span className="text-yellow-400/50 px-5">Paso 3 de {totalSteps}</span>
       </div>
 
       <h2 className="text-gray-400/50 py-3">

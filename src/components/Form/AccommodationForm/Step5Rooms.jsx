@@ -7,15 +7,17 @@ const Step5Rooms = ({
   inputClasses,
   openRoomWidget,
   removeRoomPhoto,
+  totalSteps=5,
+  isSinglePage = false,
 }) => {
 
   return (
     <div className="space-y-4 flex-col">
       <div className="flex items-baseline justify-between gap-3 mb-1">
         <h2 className="text-2xl font-bold border-b-4 border-yellow-400 inline-block pb-1 text-white">
-          Añade las habitaciones a tu alojamiento
+          {isSinglePage ? "Nueva Habitación" : "Añade las habitaciones a tu alojamiento"}
         </h2>
-        <span className="text-yellow-400/50 px-5">Paso 5 de 5</span>
+        <span className="text-yellow-400/50 px-5">Paso 5 de {totalSteps}</span>
       </div>
 
       <h2 className="text-gray-400/50 py-3">

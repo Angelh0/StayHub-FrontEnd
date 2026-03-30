@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { data, useNavigate } from "react-router-dom";
-import Navbar from "../Home/Navbar";
-import Footer from "../Home/Footer";
-
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../Home/Navbar";
+import Footer from "../../Home/Footer";
 import Step1BasicInfo from "./Step1BasicInfo";
 import Step2StayConfig from "./Step2StayConfig";
 import Step3Calendar from "./Step3Calendar";
@@ -10,8 +9,8 @@ import Step4Photos from "./Step4Photos";
 import Step5Rooms from "./Step5Rooms";
 import ButtonNavigation from "./ButtonNavigation";
 import LeftMenu from "./LeftMenu";
-import { authService } from "../../services/authService";
-import ConfirmModal from "../Objects/confirmModal";
+import { authService } from "../../../services/authService";
+import ConfirmModal from "../../Objects/confirmModal";
 
 const CreateAccommodation = () => {
   const [showDraftModal, setShowDraftModal] = useState(false);
@@ -20,6 +19,25 @@ const CreateAccommodation = () => {
   const [accommodationUuid, setAccommodationUuid] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+
+  const [formData, setFormData] = useState({
+    nombre: "",
+    tipo: "Apartment",
+    pais: "España",
+    ciudad: "",
+    descripcion: "",
+    minStay: "",
+    maxStay: "",
+    meses: [],
+    fotos: [],
+    habitaciones: "",
+    capacidad: "",
+    camas: "",
+    tipoHabitacion: "Double",
+    precio: "",
+    metros: "",
+    fotosHabitacion: [],
+  });
 
   React.useEffect(() => {
     if (step === 5) {
@@ -43,68 +61,9 @@ const CreateAccommodation = () => {
             fotosHabitacion: [...prev.fotosHabitacion, url],
           }));
         }
-      },
+      }
     );
     mywidget.open();
-  };
-
-  const handleSaveAndExit = async () => {
-    if (!accommodationUuid) {
-      navigate("/");
-      return;
-    }
-
-    setIsCreating(true);
-    try {
-      const isStep2Valid = formData.minStay > 0 && formData.maxStay >= formData.minStay;
-      if (isStep2Valid) {
-        await authService.stayConfig(accommodationUuid, { 
-          minStay: Number(formData.minStay), 
-          maxStay: Number(formData.maxStay) 
-        });
-      }
-
-      const isStep3Valid = formData.meses.length > 0;
-      if (isStep3Valid) {
-        await authService.availabilityCalendar(accommodationUuid, { 
-          availabilityCalendar: { calendarMonth: formData.meses } 
-        });
-      }
-
-      const isStep4Valid = formData.fotos.length > 0;
-      if (isStep4Valid) {
-        await authService.addPhotos(accommodationUuid, { 
-          photos: formData.fotos 
-        });
-      }
-
-      const isStep5Valid = 
-        formData.habitaciones > 0 && 
-        formData.capacidad > 0 && 
-        formData.camas > 0 && 
-        formData.precio > 1 && 
-        formData.metros > 10 && 
-        formData.fotosHabitacion.length > 0;
-
-      if (isStep5Valid) {
-        await authService.addRooms(accommodationUuid, {
-          room: formData.habitaciones, 
-          capacity: formData.capacidad, 
-          beds: formData.camas,
-          type: formData.tipoHabitacion, 
-          price: formData.precio, 
-          areaInSquareMeters: formData.metros,
-          status: "Available", 
-          photos: formData.fotosHabitacion,
-        });
-      }
-
-      navigate("/");
-    } catch (error) {
-      alert("Error al guardar antes de salir.");
-    } finally {
-      setIsCreating(false);
-    }
   };
 
   const openWidget = () => {
@@ -125,7 +84,7 @@ const CreateAccommodation = () => {
             fotos: [...prev.fotos, url],
           }));
         }
-      },
+      }
     );
     myWidget.open();
   };
@@ -143,25 +102,6 @@ const CreateAccommodation = () => {
       fotosHabitacion: prev.fotosHabitacion.filter((_, index) => index !== indexToRemove),
     }));
   };
-
-  const [formData, setFormData] = useState({
-    nombre: "",
-    tipo: "Apartment",
-    pais: "España",
-    ciudad: "",
-    descripcion: "",
-    minStay: 2,
-    maxStay: "",
-    meses: [],
-    fotos: [],
-    habitaciones: 1,
-    capacidad: 1,
-    camas: 1,
-    tipoHabitacion: "Double",
-    precio: 0,
-    metros: 0,
-    fotosHabitacion: [],
-  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -184,86 +124,82 @@ const CreateAccommodation = () => {
   const isStepsValid = () => {
     switch (step) {
       case 1: return isStep1Valid;
-      case 2: return formData.minStay > 0 && formData.maxStay >= formData.minStay;
+      case 2: return Number(formData.minStay) > 0 && Number(formData.maxStay) >= Number(formData.minStay);
       case 3: return formData.meses.length > 0;
       case 4: return formData.fotos.length > 0;
       case 5: return formData.habitaciones > 0 && formData.capacidad > 0 && formData.camas > 0 && formData.precio > 1 && formData.metros > 10 && formData.fotosHabitacion.length > 0;
       default: return true;
     }
-  }
+  };
 
-  const handleUpdate = async () => {
-    if (step === 2) {
-      setIsCreating(true);
-      try {
-        const payload = {
-          minStay: Number(formData.minStay),
-          maxStay: Number(formData.maxStay),
-        };
+  const hasDataInCurrentStep = () => {
+    switch (step) {
+      case 1:
+        return formData.nombre.trim() !== "" || formData.descripcion.trim() !== "" || formData.ciudad.trim() !== "";
+      case 2:
+        return Number(formData.minStay) > 0 || Number(formData.maxStay) > 0;
+      case 3:
+        return formData.meses.length > 0;
+      case 4:
+        return formData.fotos.length > 0;
+      case 5:
+        return formData.habitaciones > 0 || formData.capacidad > 0 || formData.camas > 0 || formData.precio > 0 || formData.metros > 0 || formData.fotosHabitacion.length > 0;
+      default:
+        return false;
+    }
+  };
 
-        if (!accommodationUuid) {
-          alert("Error interno: No se ha guardado el ID del alojamiento.");
-          return;
-        }
+  const saveCurrentStepData = async () => {
+    if (!hasDataInCurrentStep() || !accommodationUuid) return;
 
-        await authService.stayConfig(accommodationUuid, payload);
-        setStep(3);
-      } catch (error) {
-        alert("Hubo un error al guardar la configuración de la estancia ");
-      } finally {
-        setIsCreating(false);
-      }
-    } else if (step === 3) {
-      setIsCreating(true);
-      try {
+    try {
+      if (step === 1) {
+      } else if (step === 2) {
+        await authService.stayConfig(accommodationUuid, {
+          minStay: Number(formData.minStay) || 0,
+          maxStay: Number(formData.maxStay) || 0,
+        });
+      } else if (step === 3) {
+        await authService.availabilityCalendar(accommodationUuid, {
+          availabilityCalendar: { calendarMonth: formData.meses },
+        });
+      } else if (step === 4) {
+        await authService.addPhotos(accommodationUuid, { photos: formData.fotos });
+      } else if (step === 5) {
         const payload = {
-          availabilityCalendar: {
-            calendarMonth: formData.meses,
-          },
-        };
-
-        await authService.availabilityCalendar(accommodationUuid, payload);
-        setStep(4);
-      } catch (error) {
-        alert("Hubo un error al guardar el calendario de disponibilidad");
-      } finally {
-        setIsCreating(false);
-      }
-    } else if (step === 4) {
-      setIsCreating(true);
-      try {
-        const payload = {
-          photos: formData.fotos,
-        };
-        await authService.addPhotos(accommodationUuid, payload);
-        setStep(5);
-      } catch (error) {
-        alert("Hubo un error al añadir las fotos");
-      } finally {
-        setIsCreating(false);
-      }
-    } else if (step == 5) {
-      setIsCreating(true);
-      try {
-        const payload = {
-          room: formData.habitaciones,
-          capacity: formData.capacidad,
-          beds: formData.camas,
+          room: Number(formData.habitaciones) || 0,
+          capacity: Number(formData.capacidad) || 0,
+          beds: Number(formData.camas) || 0,
           type: formData.tipoHabitacion,
-          price: formData.precio,
-          areaInSquareMeters: formData.metros,
+          price: Number(formData.precio) || 0,
+          areaInSquareMeters: Number(formData.metros) || 0,
           status: "Available",
           photos: formData.fotosHabitacion,
         };
         await authService.addRooms(accommodationUuid, payload);
-        alert("Alojamiento publicado con exito")
-        navigate("/")
-      } catch (error) {
-        alert("Hubo un error al guardar las habitaciones añadidas");
-      } finally {
-        setIsCreating(false);
       }
-    } 
+    } catch (error) {
+      console.error("Error saving step:", error);
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (!accommodationUuid) return;
+    setIsCreating(true);
+
+    try {
+      await saveCurrentStepData();
+
+      if (step < 5) {
+        setStep(step + 1);
+      } else if (step === 5) {
+        navigate("/");
+      }
+    } catch (error) {
+      alert("Hubo un error al guardar los datos.");
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   const handleCreate = async (isDraft = false) => {
@@ -277,15 +213,13 @@ const CreateAccommodation = () => {
         description: formData.descripcion,
       };
       const dataBackend = await authService.createAccommodation(payload);
+      
       if (isDraft) {
-        alert(
-          "Borrador guardado. Accede a Mis Alojamientos y completa los pasos para publicar el alojamiento",
-        );
         navigate("/");
-        return; 
+        return;
       }
-      const uuid = dataBackend.uuid;
-      setAccommodationUuid(uuid);
+      
+      setAccommodationUuid(dataBackend.uuid);
       setStep(2);
     } catch (error) {
       alert("Hubo un error al crear");
@@ -294,28 +228,22 @@ const CreateAccommodation = () => {
     }
   };
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
-
-  const handleMenuClick = (targetStep) => {
-    if (targetStep === 1 || accommodationUuid) {
-      setStep(targetStep);
+  const handleSaveAndExit = async (e) => {
+    if (e) e.preventDefault();
+    if(accommodationUuid) {
+        setIsCreating(true);
+        await saveCurrentStepData();
+        navigate("/");
+    } else {
+        navigate("/");
     }
   };
 
+  const prevStep = () => setStep(step - 1);
+
   const mesesDelAño = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
   ];
 
   const stepMenu = [
@@ -332,7 +260,7 @@ const CreateAccommodation = () => {
   const labelClasses = "block text-sm font-bold mb-1 text-gray-300";
 
   return (
-    <div className="bg-white font-sans text-white">
+    <div className="bg-black font-sans text-white">
       <div className="min-h-screen flex flex-col">
         <div className="sticky top-0 z-50 w-full bg-black min-h-24 flex items-center justify-center border-b border-gray-800 shadow-xl">
           <Navbar />
@@ -343,7 +271,6 @@ const CreateAccommodation = () => {
             stepMenu={stepMenu}
             step={step}
             accommodationId={accommodationUuid}
-            handleMenuClick={handleMenuClick}
           />
 
           <div className="flex flex-col w-full md:w-3/4 bg-gray-950 p-8 border-gray-800 shadow-2xl rounded-2xl justify-between">
@@ -393,15 +320,12 @@ const CreateAccommodation = () => {
             <ButtonNavigation
               step={step}
               prevStep={prevStep}
-              nextStep={nextStep}
               handleCreate={handleCreate}
               handleUpdate={handleUpdate}
               handleSaveAndExit={handleSaveAndExit}
               accommodationId={accommodationUuid}
               isStep1Valid={isStep1Valid}
-              isStepsValid={isStepsValid()}
               isCreating={isCreating}
-              formData={formData}
               onDraftClick={() => setShowDraftModal(true)}
             />
           </div>
@@ -415,7 +339,6 @@ const CreateAccommodation = () => {
         title="Informacion sobre habitaciones"
         message="En este paso es necesario crear minimo una habitacion para poder publicar tu alojamiento. Puedes añadir tantas habitaciones como quieras ahora o acceder una vez creado el alojamiento a Mis Alojamientos > Alojamientos > Añadir una habitación"
         confirmText="Entendido"
-
       />
 
       <ConfirmModal

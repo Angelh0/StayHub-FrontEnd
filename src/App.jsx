@@ -7,7 +7,11 @@ import Register from "./components/Access/Register";
 import UpgradeOwner from "./components/Access/UpgradeOwner";
 import OwnerContainer from "./components/Access/OwnerContainer";
 import HomeContainer from "./components/Home/HomeContainer";
-import CreateAccommodation from "./components/OptionsOwner/CreateAccommodation";
+import CreateAccommodation from "./components/Form/AccommodationForm/CreateAccommodation";
+import MyAccommodations from "./components/Owner/Management/MyAccommodations";
+import EditDraft from "./components/Form/CompletedDraft/editDraft";
+import ModifiedAccommodation from "./components/Form/FormModifiedAccommodation/ModifiedAccommodation";
+import AddRoom from "./components/Form/FormAddRoom/AddRoom";
 
 function App() {
   return (
@@ -21,6 +25,10 @@ function App() {
           <Route path="/Register" element={<Register/>}/>
           <Route path="/UpgradeOwner" element={<UpgradeOwner/>}/>
           <Route path="/CreateAccommodation" element={<CreateAccommodation/>}/>
+          <Route path="/Mis-Alojamientos" element={<MyAccommodations/>}/>
+          <Route path="/Edit-Draft/:uuid" element={<EditDraft/>}/>
+          <Route path="/Modified-Accommodation/:uuid" element={<ModifiedAccommodation/>}/>
+          <Route path="/Add-Room/:uuid" element={<AddRoom/>}/>
         </Routes>
       </Router>
     </AuthProvider>

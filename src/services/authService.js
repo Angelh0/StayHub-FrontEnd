@@ -126,8 +126,50 @@ export const authService = {
       console.error("Error al añadir habitaciones: ", error.response?.data || error.message);
       throw error;
     }
+  },
+
+  getMyAccommodations: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`/getMyAccommodation`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    } catch (error) {
+      console.error("Error al obtener alojamientos: ", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  getAccommodationWithUuid: async (uuid) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`/getAccommodation/${uuid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    } catch (error) {
+      console.error("Error al obtener el alojamiento: ", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  updateAccommodation: async (uuid, updateData) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.patch(`/modified/${uuid}`, updateData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    } catch (error) {
+      console.error("Error al actualizar el alojamiento: ", error.response?.data || error.message);
+      throw error;
+    }
   }
-
-
-
 };

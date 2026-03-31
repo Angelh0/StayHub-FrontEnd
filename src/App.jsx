@@ -12,6 +12,9 @@ import MyAccommodations from "./components/Owner/Management/MyAccommodations";
 import EditDraft from "./components/Form/CompletedDraft/editDraft";
 import ModifiedAccommodation from "./components/Form/FormModifiedAccommodation/ModifiedAccommodation";
 import AddRoom from "./components/Form/FormAddRoom/AddRoom";
+import MyRooms from "./components/Owner/Management/MyRooms";
+import Search from "./components/Search/Search";
+import ModifiedRoom from "./components/Form/FormModifiedRoom/ModifiedRoom";
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
           <Route path="/Edit-Draft/:uuid" element={<EditDraft/>}/>
           <Route path="/Modified-Accommodation/:uuid" element={<ModifiedAccommodation/>}/>
           <Route path="/Add-Room/:uuid" element={<AddRoom/>}/>
+          <Route path="/Mis-Habitaciones" element={<MyRooms/>}/>
+          <Route path="/Reservar" element={<Search/>}/>
+          <Route path="/Modificar-Habitacion/:uuid" element={<ModifiedRoom/>}/>
         </Routes>
       </Router>
     </AuthProvider>

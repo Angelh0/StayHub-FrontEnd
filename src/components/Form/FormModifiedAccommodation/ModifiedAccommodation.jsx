@@ -30,7 +30,7 @@ const ModifiedAccommodation = () => {
   });
 
   useEffect(() => {
-    const fetchAccommodationData = async () => {
+    const AccommodatinoData = async () => {
       try {
         const data = await authService.getAccommodationWithUuid(uuid);
         setFormData({
@@ -51,7 +51,7 @@ const ModifiedAccommodation = () => {
         setIsLoading(false);
       }
     };
-    if (uuid) fetchAccommodationData();
+    if (uuid) AccommodatinoData();
   }, [uuid, navigate]);
 
   const handleChange = (e) => {

@@ -29,7 +29,7 @@ const Navbar = () => {
 
       <div className="hidden lg:flex items-center gap-8 font-bold text-yellow-500 text-sm">
         <button onClick={() => navigate("/")} className="hover:text-white transition-colors uppercase cursor-pointer">Inicio</button>
-        <button onClick={() => navigate("/reservas")} className="hover:text-white transition-colors uppercase cursor-pointer">Reservar</button>
+        <button onClick={() => navigate("/Reservar")} className="hover:text-white transition-colors uppercase cursor-pointer">Reservar</button>
         <button 
           onClick={() => role === "GUEST" ? navigate("/AccessContainer") : navigate("/#")} 
           className="hover:text-white transition-colors uppercase cursor-pointer"

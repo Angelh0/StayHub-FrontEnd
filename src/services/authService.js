@@ -1,4 +1,4 @@
-import { apiUser } from "../api/axios";
+import { apiReservation, apiUser } from "../api/axios";
 import { apiAccommodation } from "../api/axios";
 
 export const authService = {
@@ -171,5 +171,94 @@ export const authService = {
       console.error("Error al actualizar el alojamiento: ", error.response?.data || error.message);
       throw error;
     }
+  },
+
+  getMyRooms: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`/getMyRooms`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    } catch (error) {
+      console.error("Error al obtener las habitaciones: ", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  updateRooms: async (uuid, updateData) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.put(`/modifiedRoom/${uuid}`, updateData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    } catch (error) {
+      console.error("Error al actualizar la habitacion: ", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  createRoomBlock: async (uuid, blockData) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.post(`/room-block/${uuid}`, blockData, {
+        headers: {
+           Authorization: `Bearer ${token}` 
+          
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getBlock: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      console.log("Token enviado:", token);
+      const response = await apiReservation.get(`/getBlock`, {
+        headers: {
+           Authorization: `Bearer ${token}` 
+          }
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  cancelBlock: async (uuidBlock) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiReservation.patch(`/cancelBlock/${uuidBlock}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getRooms: async (uuid) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`/get-Rooms/${uuid}`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error al obtener la habitacino: ", + error.response?.data || error.message);
+      throw error;
+    }
   }
-};
+
+
+}

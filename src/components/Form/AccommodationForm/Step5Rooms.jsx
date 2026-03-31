@@ -9,16 +9,23 @@ const Step5Rooms = ({
   removeRoomPhoto,
   totalSteps=5,
   isSinglePage = false,
+  isEditing = false,
 }) => {
+
+  const disabled = "bg-gray-800 text-gray-500 cursor-not-allowed border-gray-800/70" 
 
   return (
     <div className="space-y-4 flex-col">
-      <div className="flex items-baseline justify-between gap-3 mb-1">
-        <h2 className="text-2xl font-bold border-b-4 border-yellow-400 inline-block pb-1 text-white">
-          {isSinglePage ? "Nueva Habitación" : "Añade las habitaciones a tu alojamiento"}
-        </h2>
-        <span className="text-yellow-400/50 px-5">Paso 5 de {totalSteps}</span>
-      </div>
+      {!isEditing && (
+        <div className="flex items-baseline justify-between gap-3 mb-1">
+          <h2 className="text-2xl font-bold border-b-4 border-yellow-400 inline-block pb-1 text-white uppercase tracking-tighter">
+            {isSinglePage ? "Nueva Habitación" : "Añade las habitaciones"}
+          </h2>
+          <span className="text-yellow-400/50 px-5 font-bold text-xs uppercase">
+            Paso 5 de {totalSteps}
+          </span>
+        </div>
+      )}
 
       <h2 className="text-gray-400/50 py-3">
         Selecciona las fotos para tu habitacion
@@ -33,7 +40,8 @@ const Step5Rooms = ({
             name="habitaciones"
             value={formData.habitaciones}
             onChange={handleChange}
-            className={inputClasses}
+            disabled={isEditing}
+            className={`${inputClasses} ${isEditing ? disabled : ""}`}
           />
         </div>
 
@@ -68,7 +76,8 @@ const Step5Rooms = ({
               name="tipoHabitacion"
               value={formData.tipoHabitacion}
               onChange={handleChange}
-              className={`${inputClasses} appearance-none`}
+              disabled={isEditing}
+              className={`${inputClasses} appearance-none ${isEditing ? disabled : ""}`}
             >
               <option value="Single" className="bg-gray-950">
                 Single
@@ -109,7 +118,8 @@ const Step5Rooms = ({
             name="metros"
             value={formData.metros}
             onChange={handleChange}
-            className={inputClasses}
+            disabled={isEditing}
+            className={`${inputClasses} ${isEditing ? disabled : ""}`}
           />
         </div>
       </div>

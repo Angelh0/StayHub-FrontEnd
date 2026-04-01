@@ -258,7 +258,57 @@ export const authService = {
       console.error("Error al obtener la habitacino: ", + error.response?.data || error.message);
       throw error;
     }
+  },
+
+  searchAdvanced: async (city, room, capacity, checkIn, checkOut) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`searchAdvanced/search/${city}/room/${room}/capacity/${capacity}/checkIn/${checkIn}/checkOut/${checkOut}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  searchAdvancedRoom: async (uuid) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get(`/searchAdvancedRoom/${uuid}`);
+      return response.data
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getLastSearch: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiAccommodation.get("/lastSearch", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error obteniendo última búsqueda:", error);
+      return null;
+    }
+  },
+
+  createReservation: async (uuid) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiReservation.post(`/createReservation/${uuid}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data;
+    } catch (error) {
+      console.error("Error en la creacion de reservas: ", error)
+      throw error;
+    }
   }
-
-
 }

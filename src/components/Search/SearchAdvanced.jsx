@@ -33,16 +33,19 @@ const SearchAdvanced = () => {
         const formatToBackendDate = (dateStr) => {
           if (!dateStr) return "";
           const cleanDate = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+          
+          let date;
           if (cleanDate.includes('-')) {
             const parts = cleanDate.split('-');
-            if (parts[0].length === 4) return `${parseInt(parts[2], 10)}-${parseInt(parts[1], 10)}-${parts[0]}`;
-            return cleanDate;
-          }
-          if (cleanDate.includes('/')) {
+            date = parts[0].length === 4 ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date(cleanDate);
+          } else if (cleanDate.includes('/')) {
             const parts = cleanDate.split('/');
-            return `${parseInt(parts[0], 10)}-${parseInt(parts[1], 10)}-${parts[2]}`;
+            date = new Date(parts[2], parts[1] - 1, parts[0]);
+          } else {
+            date = new Date(cleanDate);
           }
-          return dateStr;
+
+          return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
         };
 
         const formattedCheckIn = formatToBackendDate(dataToUse.checkIn);
@@ -68,7 +71,7 @@ const SearchAdvanced = () => {
   }, [location.state]);
 
   const getMonthName = (monthNumber) => {
-    const month = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    const month = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     return month[monthNumber - 1];
   };
 
@@ -84,62 +87,62 @@ const SearchAdvanced = () => {
         <div className="grow w-full max-w-400 mx-auto py-12 px-6">
           {isLoading ? (
             <div className="flex justify-center items-center py-32">
-              <div className="text-yellow-400 font-black uppercase tracking-widest animate-pulse flex items-center gap-3">
+              <div className="text-yellow-500 font-medium animate-pulse flex items-center gap-3">
                 <Search size={24} className="animate-spin" /> Buscando alojamientos...
               </div>
             </div>
           ) : (
             <>
-              <div className="flex justify-between items-center mb-10 pb-4 border-b border-gray-900">
-                <h1 className="text-4xl font-black uppercase tracking-tight text-white">
+              <div className="flex justify-between items-end mb-10 pb-4 border-b border-gray-900/60">
+                <h1 className="text-3xl font-bold text-white">
                   Resultados en {searchParams?.city || "tu búsqueda"}
                 </h1>
-                <span className="text-gray-600 font-bold text-sm uppercase tracking-wider">
+                <span className="text-gray-500 font-medium text-sm mb-1">
                   {accommodations.length} alojamientos
                 </span>
               </div>
               {accommodations.length === 0 ? (
-                <div className="text-center py-20 border border-gray-900 border-dashed rounded-3xl">
-                  <span className="text-gray-600 font-black uppercase tracking-widest">No hemos encontrado habitaciones disponibles</span>
+                <div className="text-center py-20 border border-gray-900 border-dashed rounded-2xl">
+                  <span className="text-gray-600 font-medium">No hemos encontrado habitaciones disponibles</span>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                   {accommodations.map((acc) => {
                     const activeMonthsList = acc.availabilityCalendar?.calendarMonth || [];
                     return (
-                      <div key={acc.uuid} className="bg-black border border-gray-900 rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all hover:border-gray-800">
+                      <div key={acc.uuid} className="bg-[#080808] border border-gray-900 rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all hover:border-gray-800">
                         <div className="relative h-60 bg-black">
                           <img src={acc.photos[0]} className="w-full h-full object-cover brightness-90" alt={acc.name} />
                         </div>
-                        <div className="p-7 flex flex-col gap-5 grow">
+                        <div className="p-6 flex flex-col gap-4 grow">
                           <div>
-                            <span className="text-white font-bold text-xs bg-gray-900 px-3 py-1 rounded-md mb-3 inline-block">{acc.type}</span>
-                            <h3 className="text-2xl font-black tracking-tight mb-2">{acc.name}</h3>
+                            <span className="text-gray-300 font-medium text-xs bg-gray-900/60 border border-gray-800 px-2.5 py-1 rounded text-[11px] mb-3 inline-block">{acc.type}</span>
+                            <h3 className="text-xl font-bold mb-1.5">{acc.name}</h3>
                             <div className="flex items-center gap-1.5 text-yellow-500">
-                              <MapPin size={16} strokeWidth={2.5} /><span className="text-sm font-medium text-gray-400">{acc.city}</span>
+                              <MapPin size={14} strokeWidth={2.5} /><span className="text-sm font-medium text-gray-400">{acc.city}</span>
                             </div>
                           </div>
                           <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 min-h-10">{acc.description}</p>
                           <div className="flex items-center gap-8 py-2">
                             <div className="flex items-center gap-2">
-                              <BedDouble size={20} className="text-yellow-400" />
+                              <BedDouble size={18} className="text-yellow-500" />
                               <span className="text-sm text-gray-300 font-medium">{acc.availability} habitaciones</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <Calendar size={20} className="text-yellow-400" />
+                              <Calendar size={18} className="text-yellow-500" />
                               <span className="text-sm text-gray-300 font-medium">{acc.minStay}-{acc.maxStay} días</span>
                             </div>
                           </div>
                           <div>
-                            <p className="text-[9px] text-gray-600 font-black uppercase mb-3 tracking-widest italic">Meses activos:</p>
+                            <p className="text-xs text-gray-500 font-medium mb-2 italic">Meses activos:</p>
                             <div className="flex flex-wrap gap-2">
                               {[...activeMonthsList].sort((a, b) => a - b).map(m => (
-                                <span key={m} className="bg-yellow-500/5 text-yellow-500 border border-yellow-500/20 px-2 py-1 rounded-md text-[9px] font-black uppercase">{getMonthName(m)}</span>
+                                <span key={m} className="bg-yellow-500/5 text-yellow-500 border border-yellow-500/20 px-2.5 py-1 rounded text-[11px] font-medium">{getMonthName(m)}</span>
                               ))}
                             </div>
                           </div>
                           <div className="flex gap-3 mt-auto pt-6">
-                            <button onClick={() => navigate(`/Busqueda-Habitaciones/${acc.uuid}`)} className="flex-1 flex bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3.5 rounded-xl text-sm items-center justify-center gap-2 transition-colors cursor-pointer">
+                            <button onClick={() => navigate(`/Busqueda-Habitaciones/${acc.uuid}`)} className="flex-1 flex bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-xl text-sm items-center justify-center gap-2 transition-colors cursor-pointer">
                               Ver habitaciones <ArrowRight size={18} />
                             </button>
                           </div>

@@ -310,5 +310,51 @@ export const authService = {
       console.error("Error en la creacion de reservas: ", error)
       throw error;
     }
-  }
+  },
+
+  myReservationUser: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiReservation.get("/myReservation/user", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data;
+    } catch (error) {
+      console.error("Error al obtener las reservas de usuario")
+      throw error;
+    }
+  },
+
+  cancelMyReservation: async (uuid) => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiReservation.patch(`/cancelReservation/${uuid}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      response.data
+      return response.data
+    } catch (error) {
+      console.error("Error al cancelar la reserva")
+      throw error;
+    }
+  },
+
+   myReservationOwner: async () => {
+    try {
+      const token = localStorage.getItem("stayhub_token");
+      const response = await apiReservation.get("/myReservation/owner", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data;
+    } catch (error) {
+      console.error("Error al obtener las reservas del propietario")
+      throw error;
+    }
+  },
 }

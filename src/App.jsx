@@ -15,8 +15,10 @@ import AddRoom from "./components/Form/FormAddRoom/AddRoom";
 import MyRooms from "./components/Owner/Management/MyRooms";
 import Search from "./components/Search/Search";
 import ModifiedRoom from "./components/Form/FormModifiedRoom/ModifiedRoom";
-import SearchAdvanced from "./components/Search/SearchAdvanced";
+import SearchAdvanced from "./components/Search/searchAdvanced";
 import SearchAdvancedRoom from "./components/Search/SearchAdvancedRooms";
+import MyReservation from "./components/Reservation/MyReservation";
+import OwnerReservation from "./components/Reservation/OwnerReservation";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
           <Route path="/Modificar-Habitacion/:uuid" element={<ModifiedRoom/>}/>
           <Route path="/Busqueda-Alojamientos" element={<SearchAdvanced/>}/>
           <Route path="/Busqueda-Habitaciones/:uuid" element={<SearchAdvancedRoom/>}/>
+          <Route path="/Mis-Reservas/usuario" element={<MyReservation/>}/>
+          <Route path="/Mis-Reservas/propietario" element={<OwnerReservation/>}/>
         </Routes>
       </Router>
     </AuthProvider>

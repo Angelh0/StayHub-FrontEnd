@@ -5,7 +5,6 @@ import Featured from "./Featured";
 import OwnerBanner from "./OwnerBanner";
 import Destinations from "./Destinations";
 import Footer from "./Footer";
-import LogoStayHub from "../../assets/LogoStayHub.svg";
 
 const HomeContainer = () => {
   return (

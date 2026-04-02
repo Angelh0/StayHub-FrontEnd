@@ -70,11 +70,6 @@ const OwnerReservation = () => {
     }
   };
 
-  const handleConfirm = async (uuid) => {
-    console.log("Confirmar reserva (falta endpoint):", uuid);
-
-  };
-
   const uniqueAccommodations = reservations.reduce((acc, current) => {
     if (!acc.find(item => item.uuidAccommodation === current.uuidAccommodation)) {
       acc.push({ uuidAccommodation: current.uuidAccommodation, nameAccommodation: current.nameAccommodation });

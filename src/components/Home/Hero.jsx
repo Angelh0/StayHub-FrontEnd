@@ -21,7 +21,7 @@ const cities = [
   { name: "Tenerife", url: "https://images.unsplash.com/photo-1602521715918-e50cc83f7326?q=80&w=764" }
 ];
 
-const Hero = ({ minimal = false }) => {
+const Hero = ({ minimal = false, showScrollHint = true }) => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [ubication, setUbication] = useState("");
@@ -78,7 +78,7 @@ const Hero = ({ minimal = false }) => {
   }, []);
 
   return (
-    <div className={`relative w-full overflow-hidden bg-black font-sans ${minimal ? 'h-full' : 'h-215'}`}>
+    <div className={`relative w-full overflow-hidden bg-black font-sans ${minimal ? 'h-full' : 'h-165'}`}>
       {cities.map((city, index) => (
         <div
           key={index}
@@ -207,12 +207,14 @@ const Hero = ({ minimal = false }) => {
               ))}
             </div>
 
-            <div className="flex flex-col gap-5 absolute text-center items-center bottom-10">
-              <h2 className="text-xl text-white font-bold italic drop-shadow-md">
-                Desliza para conocer alguno de nuestros mejores alojamientos
-              </h2>
-              <Mouse className="text-yellow-400 animate-bounce size-8 drop-shadow-lg" />
-            </div>
+            {showScrollHint && (
+              <div className="flex flex-col gap-5 absolute text-center items-center bottom-10">
+                <h2 className="text-xl text-white font-bold italic drop-shadow-md">
+                  Desliza para conocer alguno de nuestros mejores alojamientos
+                </h2>
+                <Mouse className="text-yellow-400 animate-bounce size-8 drop-shadow-lg" />
+              </div>
+            )}
           </>
         )}
       </div>

@@ -27,7 +27,7 @@ const AccessContainer = ({ isOpen, onClose, onOpenLogin, onOpenRegister }) => {
           <h2 className="text-3xl text-white uppercase font-bold">yHub</h2>
         </div>
 
-        <div className="flex flex-row gap-3 h-150">
+        <div className="flex flex-row gap-3 h-140">
 
           <div
             className="bg-white relative w-1/2 rounded-3xl overflow-hidden bg-cover bg-center flex items-end justify-end p-3 transition-all hover:scale-[1.01]"

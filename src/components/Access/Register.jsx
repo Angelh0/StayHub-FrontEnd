@@ -43,13 +43,13 @@ const Register = ({ isOpen, onClose, onOpenLogin }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-110 flex items-center justify-center p-4 overflow-hidden select-none">
+    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 overflow-hidden select-none">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
 
-      <div className="relative w-full max-w-md flex flex-col gap-4 overflow-hidden">
+      <div className="relative w-full max-w-md flex flex-col gap-3 overflow-hidden">
         
-        <div className="bg-black rounded-2xl shadow-xl p-8 border border-gray-900 relative">
-          <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-white cursor-pointer z-50 transition-colors">
+        <div className="bg-black rounded-2xl shadow-xl p-6 border border-gray-900 relative">
+          <button onClick={onClose} className="absolute top-5 right-5 text-gray-500 hover:text-white cursor-pointer z-50 transition-colors">
             <X size={24} />
           </button>
 
@@ -59,63 +59,63 @@ const Register = ({ isOpen, onClose, onOpenLogin }) => {
             <h2 className="text-3xl text-white uppercase font-bold">yHub</h2>
           </div>
 
-          <div className="justify-center flex flex-col items-center w-full mb-6 text-center">
+          <div className="justify-center flex flex-col items-center w-full mb-4 text-center">
             <p className="text-white text-sm">Bienvenido de nuevo, Inicia sesion</p>
             {error && (
-              <p className="bg-red-500/50 text-red-500 border border-red-500/20 p-3 rounded-xl text-xs mt-4 w-full">
+              <p className="bg-red-500/50 text-red-500 border border-red-500/20 p-2 rounded-xl text-xs mt-3 w-full">
                 {error}
               </p>
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div>
-              <label className="text-sm font-bold text-white block mb-2">Nombre</label>
+              <label className="text-sm font-bold text-white block mb-1">Nombre</label>
               <input
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
+                className="w-full px-3 py-2 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
                 placeholder="Nombre"
                 required
               />
             </div>
 
             <div>
-              <label className="text-sm font-bold text-white block mb-2">Apellidos</label>
+              <label className="text-sm font-bold text-white block mb-1">Apellidos</label>
               <input
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
+                className="w-full px-3 py-2 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
                 placeholder="Apellidos"
                 required
               />
             </div>
 
             <div>
-              <label className="text-sm font-bold text-white block mb-2">Correo</label>
+              <label className="text-sm font-bold text-white block mb-1">Correo</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
+                className="w-full px-3 py-2 border text-white border-white rounded-xl shadow-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
                 placeholder="StayHub@gmail.com"
                 required
               />
             </div>
 
             <div>
-              <label className="text-sm font-bold text-white block mb-2">Contraseña</label>
+              <label className="text-sm font-bold text-white block mb-1">Contraseña</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full p-3 text-white border border-white rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
+                className="w-full px-3 py-2 text-white border border-white rounded-xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none transition-all placeholder-gray-400 caret-white bg-transparent"
                 placeholder="••••••"
                 required
               />
@@ -124,7 +124,7 @@ const Register = ({ isOpen, onClose, onOpenLogin }) => {
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`w-full font-bold py-3 rounded-xl transition-all ring ${
+              className={`w-full font-bold py-2.5 rounded-xl transition-all ring ${
                 isFormValid
                   ? "bg-black text-green-400 ring-green-400 hover:scale-[1.02] cursor-pointer"
                   : "bg-transparent text-red-500/50 ring-red-600 cursor-not-allowed opacity-50"
@@ -135,12 +135,12 @@ const Register = ({ isOpen, onClose, onOpenLogin }) => {
           </form>
         </div>
 
-        <div className="bg-black rounded-2xl shadow-xl p-8 border border-gray-900">
-          <p className="text-white text-center mb-6 text-sm">¿Ya tienes cuenta?</p>
+        <div className="bg-black rounded-2xl shadow-xl p-6 border border-gray-900">
+          <p className="text-white text-center mb-3 text-sm">¿Ya tienes cuenta?</p>
           <button
             type="button"
             onClick={onOpenLogin}
-            className="w-full bg-black text-yellow-400 ring ring-yellow-400 font-bold py-3 rounded-xl active:scale-95 hover:scale-[1.02] cursor-pointer"
+            className="w-full bg-black text-yellow-400 ring ring-yellow-400 font-bold py-2.5 rounded-xl active:scale-95 hover:scale-[1.02] cursor-pointer"
           >
             Iniciar Sesión
           </button>

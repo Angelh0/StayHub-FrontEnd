@@ -11,7 +11,7 @@ const Search = () => {
       </div>
 
       <div className="w-full bg-green-200 min-h-[90vh] flex items-center justify-center">
-        <Hero />
+        <Hero showScrollHint={false} />
       </div>
 
       <div className="w-full min-h-100 bg-black items-center justify-center">
